@@ -31,7 +31,7 @@ start<br>
 $ docker start d483da6aee04<br>
 attach<br>
 $ docker attach d483da6aee04
-コンテナ削除<bx
+コンテナ削除<bx>
 $ docker rm 822cff
 
 ### Webappの作成方法
