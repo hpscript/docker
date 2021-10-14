@@ -35,4 +35,48 @@ $ docker attach d483da6aee04
 $ docker rm 822cff
 
 ### Webappの作成方法
-1. Dockerfileを作成する
+Dockerfileを作成する
+```
+FROM python:3.6
+
+# 作業ディレクトリ
+WORKDIR /app
+
+# カレントディレクトリをコンテナの/appにコピー
+ADD . /app
+
+# requirmentsをインストール
+RUN pip install --trusted-host pypi.python.org -r requirements.txt
+
+# 80番ポート待ち受け
+EXPOSE 80
+
+# image中の環境変数
+ENV NAME world
+
+# コンテナが起動した時に実行される命令
+CMD ["python", "app.py"]
+```
+requirement
+```
+Flask
+```
+app.py
+```
+from flask import Flask
+import os
+import socket
+
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+	html = "<h3>Hello world</h3>"
+	return html.format()
+
+if __name__ == "__main__";
+	app.run(host='0.0.0.0', port=80)
+```
+### docker
+$ sudo docker build -t hello-world .
+$ sudo docker run -d -p 4000:80 hello-world     
